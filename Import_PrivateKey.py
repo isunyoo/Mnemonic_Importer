@@ -1,4 +1,3 @@
-import pandas as pd
 import subprocess, os, glob
 from decouple import config
 from sys import stderr, stdout
@@ -29,7 +28,6 @@ def importPrivateKey(private_key):
         os.remove(f)
 
     print(private_key)
-
     return status.returncode, status.stdout
 
 
