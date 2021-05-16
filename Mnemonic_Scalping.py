@@ -12,21 +12,19 @@ KEY_BASE = config('KEYSTORE_BASE')
 # Connection Verification
 web3 = Web3(Web3.HTTPProvider(NETWORK_HOME))
 
+# Update Imported PrivateKey Logs
+pfile = open(KEY_BASE+'/importedKey/importedPrivateKeys', 'a')
+
 # Function of PrivateKey import result display
 def importResultData(import_result_code, import_result_stdout, imported_privatekey):    
     if(import_result_code == 0):     
         message = (f'A private key has imported successfully. {import_result_stdout} PrivateKey: {imported_privatekey}') 
-        print(message)
-        # Update Imported PrivateKey Logs
-        # pfile = open(KEY_BASE+'/temp/importedPrivateKeys', 'a')
-        # pfile.write(message+"\n")
-        # pfile.close()            
-        with open(KEY_BASE+'/temp/importedPrivateKeys', 'a') as pfile:
-            pfile.write(message+"\n")
-            pfile.close()            
+        print(message)        
+        # Append Imported PrivateKey Logs
+        pfile.write(message+"\n")                
     else:        
         message = (f'{import_result_stdout} Unable to import a private key. Please check a privatekey file and try again.<br>')
-        print(message) 
+        print(message)     
 
 # Function to call import Mnemonic Seeds
 def importSeedPhraseInput():             
