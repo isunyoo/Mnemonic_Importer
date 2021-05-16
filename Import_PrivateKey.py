@@ -26,9 +26,8 @@ def importPrivateKey(private_key):
     files = glob.glob(KEY_BASE+'/temp/*')
     for f in files:
         os.remove(f)
-
-    print(private_key)
-    return status.returncode, status.stdout
+    
+    return status.returncode, status.stdout, private_key
 
 
 # Function to upload privateKey file in ETHEREUM_HOME
