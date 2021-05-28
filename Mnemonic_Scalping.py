@@ -12,25 +12,28 @@ KEY_BASE = config('KEYSTORE_BASE')
 # Connection Verification
 web3 = Web3(Web3.HTTPProvider(NETWORK_HOME))
 
-# Update Imported PrivateKey Logs
-pfile = open(KEY_BASE+'/importedKey/importedPrivateKeys', 'a')
 
 # Function of PrivateKey import result display
-def importResultData(import_result_code, import_result_stdout, imported_privatekey):    
+def importResultData(import_result_code, import_result_stdout, imported_privatekey, importedCount):   
+      
+    # Update Imported PrivateKey Logs
+    pfile = open(KEY_BASE+'/importedKey/importedPrivateKeys', 'a')
+
     if(import_result_code == 0):     
-        message = (f'A private key has imported successfully. {import_result_stdout} PrivateKey: {imported_privatekey}') 
+        message = (f'({importedCount}) A private key has imported successfully. {import_result_stdout}PrivateKey: {imported_privatekey}\n') 
         print(message)        
         # Append Imported PrivateKey Logs
-        pfile.write(message+"\n")                
+        pfile.write(message+"\n") 
+        pfile.close()
     else:        
         message = (f'{import_result_stdout} Unable to import a private key. Please check a privatekey file and try again.<br>')
         print(message)     
 
 # Function to call import Mnemonic Seeds
-def importSeedPhraseInput():             
+def importSeedPhraseInput(count_num):             
     privateKeyValue = mnemonic_Gen.randomPrivateKey()
     returncode, stdout, privatekey = imPri.importPrivateKey(privateKeyValue) 
-    importResultData(returncode, stdout, privatekey)
+    importResultData(returncode, stdout, privatekey, count_num)
 
     # Change the glob if you want to only look through files with specific names
     files = glob.glob(f'{KFILE_HOME}/*', recursive=True)    
@@ -47,6 +50,8 @@ def importSeedPhraseInput():
 
 
 if __name__ == "__main__":
+    importedCount = 1
     while True:
-        importSeedPhraseInput()
+        importSeedPhraseInput(importedCount)
         time.sleep(3)
+        importedCount+=1

@@ -1,0 +1,15 @@
+<pre id="output"></pre>
+<script>
+    var output = document.getElementById('output');
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '{{ url_for('stream') }}');
+    xhr.send();
+
+    setInterval(function() {
+        output.textContent = xhr.responseText;
+    }, 1000);
+</script>
+
+
+<!-- https://stackoverflow.com/questions/51057966/flask-toggle-button-with-dynamic-label -->
