@@ -10,7 +10,7 @@ def index():
 @app.route('/stream')
 def stream():
     def generate():
-        with open('/home/syoo/.ethereum/development/importedKey/importedPrivateKeys') as f:
+        with open('/home/syoo/.ethereum/importedKey/importedPrivateKeys') as f:
             while True:
                 yield f.read()                                
                 sleep(1)        
