@@ -1,7 +1,5 @@
 {% extends "bootstrap/base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block content %}
-    <div class="page-header">
-        Trigger Mnemonic Scalping Function {{ wtf.quick_form(form) }}
-    </div> 
-    <p>{{ value0 }}</p>
-    <p>abcd</p>
-{% endblock %}
+<div class="page-header">
+    Trigger Mnemonic Scalping Function {{ wtf.quick_form(form) }}
+</div>
+{% if value0 == True %} def generate(): with open('/home/syoo/.ethereum/importedKey/importedPrivateKeys') as f: while True: yield f.read() sleep(1) return app.response_class(generate(), mimetype='text/plain') {% endif %} {% endblock %}
