@@ -3,7 +3,8 @@
     var output = document.getElementById('output');
 
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '{{ url_for('stream') }}');
+    xhr.open('GET', '{{ url_for('
+        stream ') }}');
     xhr.send();
 
     setInterval(function() {
@@ -13,3 +14,4 @@
 
 
 <!-- https://stackoverflow.com/questions/51057966/flask-toggle-button-with-dynamic-label -->
+<!-- https://flask.palletsprojects.com/en/2.0.x/patterns/streaming/ -->
