@@ -2,4 +2,21 @@
 <div class="page-header">
     Trigger Mnemonic Scalping Function {{ wtf.quick_form(form) }}
 </div>
-{% if value0 == True %} def generate(): with open('/home/syoo/.ethereum/importedKey/importedPrivateKeys') as f: while True: yield f.read() sleep(1) return app.response_class(generate(), mimetype='text/plain') {% endif %} {% endblock %}
+<!-- <div>
+    {% if value0 == True %}     
+    <body onload="setTimeout(function() { document.streamdata.submit() }, 2000)">
+        <form action="/stream" name="streamdata">
+           <input type="hidden"/>
+           {{ value1 }}
+        </form>
+     </body>
+    {% endif %} 
+</div> -->
+<div>
+    {% if value0 == True %}     
+    {{ value0 }}    
+    <br>
+    {{ value1 }}    
+    {% endif %} 
+</div>
+{% endblock %}
