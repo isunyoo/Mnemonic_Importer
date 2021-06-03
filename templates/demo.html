@@ -1,22 +1,26 @@
 {% extends "bootstrap/base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block content %}
 <div class="page-header">
-    Trigger Mnemonic Scalping Function {{ wtf.quick_form(form) }}
+    <ul>
+        <li>Trigger Mnemonic Scalping Function {{ wtf.quick_form(form) }}</li>
+    </ul>
+</div>
+<div>
+    <ul>
+        <li>
+            {% if value0 == True %}
+
+            <body onload="setTimeout(function() { document.streamdata.submit() }, 2000)">
+                <form action="/stream" name="streamdata" method="post">
+                    <input type="hidden" />
+                </form>
+            </body>
+            {% endif %}
+        </li>
+    </ul>
 </div>
 <!-- <div>
-    {% if value0 == True %}     
-    <body onload="setTimeout(function() { document.streamdata.submit() }, 2000)">
-        <form action="/stream" name="streamdata">
-           <input type="hidden"/>
-           {{ value1 }}
-        </form>
-     </body>
-    {% endif %} 
+    {% if value0 == True %} {{ value0 }}
+    <br> {{ value1 }}
+    {% endif %}
 </div> -->
-<div>
-    {% if value0 == True %}     
-    {{ value0 }}    
-    <br>
-    {{ value1 }}    
-    {% endif %} 
-</div>
 {% endblock %}
