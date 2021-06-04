@@ -1,17 +1,12 @@
-<pre id="output"></pre>
-<script>
-    var output = document.getElementById('output');
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '{{ url_for('
-        stream ') }}');
-    xhr.send();
-
-    setInterval(function() {
-        output.textContent = xhr.responseText;
-    }, 1000);
-</script>
-
-
-<!-- https://stackoverflow.com/questions/51057966/flask-toggle-button-with-dynamic-label -->
-<!-- https://flask.palletsprojects.com/en/2.0.x/patterns/streaming/ -->
+{% extends "bootstrap/base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block content %}
+<div class="page-header">
+    <ul>
+        <li>Trigger Mnemonic Scalping Function Switch {{ wtf.quick_form(form) }}</li>
+    </ul>
+</div>
+<div>  
+    {% if value0 == True %}                     
+    <embed type="text/html" src="{{ url_for('streamData') }}" width="800" height="1600">    
+    {% endif %}    
+</div>
+{% endblock %}
