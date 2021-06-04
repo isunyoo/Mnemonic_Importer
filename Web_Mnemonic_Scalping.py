@@ -4,31 +4,51 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField
 from decouple import config
 from time import sleep
-
+import Mnemonic_Scalping as mnemonic_Scalp
 
 # Global variables
 KEY_BASE = config('KEYSTORE_BASE')
 
-class PowerState(FlaskForm) :
+# Function to trigger Mnemonic Scalping Process
+def triggerMnemonicScalp(buttonStatus):
+    importedCount = 1    
+    if(buttonStatus == True):
+        while True:                   
+            mnemonic_Scalp.importSeedPhraseInput(importedCount)                
+            sleep(3)
+            importedCount+=1
+        # print(buttonStatus)
+    elif(buttonStatus == False):                     
+        # break
+        exit()
+        # print(buttonStatus)
+                
+        
+class PowerState(FlaskForm):
     state = SubmitField('ON')
 
+# Flask http web display
 app = Flask(__name__)
 Bootstrap(app)
 
 app.config['SECRET_KEY'] = 'abcd1234$'
 
 @app.route('/', methods=['GET', 'POST'])
-def home() :
+def home():
     form = PowerState()
-    buttonStatus = False    
+    buttonStatus = False
 
-    if form.validate_on_submit() :
-        if form.state.label.text == 'OFF' :
-            buttonStatus = True
-            PowerState.state = SubmitField('ON')                        
-        elif form.state.label.text == 'ON' :
-            buttonStatus = False                                               
-            PowerState.state = SubmitField('OFF')            
+    if form.validate_on_submit():
+        if(form.state.label.text == 'OFF'):
+            PowerState.state = SubmitField('ON')
+            buttonStatus = True            
+            # triggerMnemonicScalp(buttonStatus)                                    
+        elif(form.state.label.text == 'ON'):     
+            PowerState.state = SubmitField('OFF')    
+            buttonStatus = False                                
+            # triggerMnemonicScalp(buttonStatus)                                                        
+    
+    triggerMnemonicScalp(buttonStatus)                                                        
         
     return render_template('index.html', value0=buttonStatus, form=form)
 

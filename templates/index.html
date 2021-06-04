@@ -1,12 +1,14 @@
 {% extends "bootstrap/base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block content %}
 <div class="page-header">
     <ul>
-        <li>Trigger Mnemonic Scalping Function Switch {{ wtf.quick_form(form) }}</li>
+        <li>
+            <h3>Trigger Mnemonic Scalping Function Switch Button</h3>
+            {{ wtf.quick_form(form) }}
+        </li>
     </ul>
 </div>
-<div>  
-    {% if value0 == True %}                     
-    <embed type="text/html" src="{{ url_for('streamData') }}" width="800" height="1600">    
-    {% endif %}    
+<div>
+    {% if value0 == True %}
+    <embed type="text/html" src="{{ url_for('streamData') }}" width="800" height="1600"> {% endif %}
 </div>
 {% endblock %}
