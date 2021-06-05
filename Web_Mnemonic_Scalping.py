@@ -12,17 +12,16 @@ KEY_BASE = config('KEYSTORE_BASE')
 # Function to trigger Mnemonic Scalping Process
 def triggerMnemonicScalp(buttonStatus):
     importedCount = 1    
-    if(buttonStatus == True):
-        while True:                   
-            mnemonic_Scalp.importSeedPhraseInput(importedCount)                
-            sleep(3)
-            importedCount+=1
-        # print(buttonStatus)
-    elif(buttonStatus == False):                     
-        # break
-        exit()
-        # print(buttonStatus)
-                
+    while True:                   
+        if(buttonStatus == True):                  
+            # mnemonic_Scalp.importSeedPhraseInput(importedCount)                
+            # sleep(3)
+            # importedCount+=1
+            print(buttonStatus)
+        elif(buttonStatus == False):                     
+            print(buttonStatus)
+            break
+            # exit()
         
 class PowerState(FlaskForm):
     state = SubmitField('ON')
@@ -37,20 +36,20 @@ app.config['SECRET_KEY'] = 'abcd1234$'
 def home():
     form = PowerState()
     buttonStatus = False
+    triggerMnemonicScalp(buttonStatus) 
 
     if form.validate_on_submit():
         if(form.state.label.text == 'OFF'):
             PowerState.state = SubmitField('ON')
             buttonStatus = True            
-            # triggerMnemonicScalp(buttonStatus)                                    
+            # triggerMnemonicScalp(buttonStatus)                                                
         elif(form.state.label.text == 'ON'):     
             PowerState.state = SubmitField('OFF')    
             buttonStatus = False                                
             # triggerMnemonicScalp(buttonStatus)                                                        
-    
-    triggerMnemonicScalp(buttonStatus)                                                        
         
     return render_template('index.html', value0=buttonStatus, form=form)
+    
 
 @app.route('/streamData', methods=['GET'])
 def streamData():
