@@ -1,10 +1,10 @@
+from time import sleep
+from decouple import config
+from threading import Thread
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
-from time import sleep
-from decouple import config
-from threading import Thread
 import Mnemonic_Scalping as mnemonic_Scalp
 
 # Global variables
@@ -13,17 +13,7 @@ Stop_Threads = False
 
 # Function to trigger Mnemonic Scalping Process
 def triggerMnemonicScalp(stop_status):
-    importedCount = 1    
-    # while True:                   
-    #     if(buttonStatus == True):                  
-    #         # mnemonic_Scalp.importSeedPhraseInput(importedCount)                
-    #         # sleep(3)
-    #         # importedCount+=1
-    #         print(buttonStatus)
-    #     elif(buttonStatus == False):                     
-    #         print(buttonStatus)
-    #         break
-    #         # exit()
+    importedCount = 1        
     while True:
         global Stop_Threads                
         mnemonic_Scalp.importSeedPhraseInput(importedCount)                
@@ -31,18 +21,6 @@ def triggerMnemonicScalp(stop_status):
         importedCount+=1        
         if stop_status():
             break
-
-# def threadController(buttonStatus):
-#     global Stop_Threads
-
-#     background_thread = Thread(target=triggerMnemonicScalp, args=(lambda: Stop_Threads,))               
-#     if(buttonStatus == False): 
-#         Stop_Threads = False        
-#         background_thread.start()    
-#     elif(buttonStatus == True):                         
-#         Stop_Threads = True
-#         background_thread.join()
-
 
 class PowerState(FlaskForm):
     state = SubmitField('ON')
@@ -55,33 +33,26 @@ app.config['SECRET_KEY'] = 'abcd1234$'
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    form = PowerState()
-    # global Stop_Threads 
-    buttonStatus = False    
+    global Stop_Threads      
+    form = PowerState()    
+    thread_lists = []         
 
     if form.validate_on_submit():        
         if(form.state.label.text == 'OFF'):
-            PowerState.state = SubmitField('ON')
-            buttonStatus = True                          
-            Stop_Threads = False
-            background_thread = Thread(target=triggerMnemonicScalp, args=(lambda: Stop_Threads,))                 
-            background_thread.start()      
-            # background_thread = Thread(target=triggerMnemonicScalp)        
-            # triggerMnemonicScalp(buttonStatus)   
+            PowerState.state = SubmitField('ON')                              
+            Stop_Threads = False            
+            background_thread = Thread(target=triggerMnemonicScalp, args=(lambda: Stop_Threads,))                                       
+            background_thread.start() 
+            thread_lists.append(background_thread)                             
         elif(form.state.label.text == 'ON'):     
-            PowerState.state = SubmitField('OFF')    
-            buttonStatus = False                              
-            background_thread = Thread(target=triggerMnemonicScalp, args=(lambda: Stop_Threads,))         
-            background_thread.start()    
-            sleep(1)
-            Stop_Threads = True        
-            background_thread.join()                
-            # background_thread = Thread(target=triggerMnemonicScalp)                       
-            # triggerMnemonicScalp(buttonStatus)                                                        
+            PowerState.state = SubmitField('OFF')                                                   
+            # Wait for all threads to complete
+            Stop_Threads = True 
+            for thread in thread_lists:                
+                thread.join()                                                                             
         
-    return render_template('index.html', value0=buttonStatus, form=form)
+    return render_template('index.html', form=form)
     
-# https://www.geeksforgeeks.org/python-different-ways-to-kill-a-thread/
 
 @app.route('/streamData', methods=['GET'])
 def streamData():

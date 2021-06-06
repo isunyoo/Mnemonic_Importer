@@ -20,7 +20,7 @@ def importResultData(import_result_code, import_result_stdout, imported_privatek
     pfile = open(KEY_BASE+'/importedKey/importedPrivateKeys', 'a')
 
     if(import_result_code == 0):     
-        message = (f'({importedCount}) A private key has imported successfully. {import_result_stdout}PrivateKey: {imported_privatekey}\n') 
+        message = (f'({importedCount}) A private key has imported successfully.\n{import_result_stdout}PrivateKey: {imported_privatekey}\n') 
         print(message)        
         # Append Imported PrivateKey Logs
         pfile.write(message+"\n") 

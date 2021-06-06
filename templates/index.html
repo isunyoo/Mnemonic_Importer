@@ -7,8 +7,4 @@
         </li>
     </ul>
 </div>
-<div>
-    {% if value0 == True %}
-    <embed type="text/html" src="{{ url_for('streamData') }}" width="800" height="1600"> {% endif %}
-</div>
-{% endblock %}
+<embed type="text/html" src="{{ url_for('streamData') }}" width="800" height="1600"> {% endblock %}
