@@ -12,7 +12,7 @@ KEY_BASE = config('KEYSTORE_BASE')
 Stop_Threads = False
 
 # Function to trigger Mnemonic Scalping Process
-def triggerMnemonicScalp():
+def triggerMnemonicScalp(stop_status):
     importedCount = 1    
     # while True:                   
     #     if(buttonStatus == True):                  
@@ -29,9 +29,21 @@ def triggerMnemonicScalp():
         mnemonic_Scalp.importSeedPhraseInput(importedCount)                
         sleep(3)
         importedCount+=1        
-        if Stop_Threads:
+        if stop_status():
             break
-        
+
+# def threadController(buttonStatus):
+#     global Stop_Threads
+
+#     background_thread = Thread(target=triggerMnemonicScalp, args=(lambda: Stop_Threads,))               
+#     if(buttonStatus == False): 
+#         Stop_Threads = False        
+#         background_thread.start()    
+#     elif(buttonStatus == True):                         
+#         Stop_Threads = True
+#         background_thread.join()
+
+
 class PowerState(FlaskForm):
     state = SubmitField('ON')
 
@@ -44,22 +56,27 @@ app.config['SECRET_KEY'] = 'abcd1234$'
 @app.route('/', methods=['GET', 'POST'])
 def home():
     form = PowerState()
-    global Stop_Threads 
-    buttonStatus = False
+    # global Stop_Threads 
+    buttonStatus = False    
 
     if form.validate_on_submit():        
         if(form.state.label.text == 'OFF'):
             PowerState.state = SubmitField('ON')
-            buttonStatus = True                 
-            background_thread = Thread(target=triggerMnemonicScalp) 
+            buttonStatus = True                          
+            Stop_Threads = False
+            background_thread = Thread(target=triggerMnemonicScalp, args=(lambda: Stop_Threads,))                 
             background_thread.start()      
+            # background_thread = Thread(target=triggerMnemonicScalp)        
             # triggerMnemonicScalp(buttonStatus)   
         elif(form.state.label.text == 'ON'):     
             PowerState.state = SubmitField('OFF')    
-            buttonStatus = False 
-            background_thread = Thread(target=triggerMnemonicScalp)
-            Stop_Threads = True
-            background_thread.join()                               
+            buttonStatus = False                              
+            background_thread = Thread(target=triggerMnemonicScalp, args=(lambda: Stop_Threads,))         
+            background_thread.start()    
+            sleep(1)
+            Stop_Threads = True        
+            background_thread.join()                
+            # background_thread = Thread(target=triggerMnemonicScalp)                       
             # triggerMnemonicScalp(buttonStatus)                                                        
         
     return render_template('index.html', value0=buttonStatus, form=form)
