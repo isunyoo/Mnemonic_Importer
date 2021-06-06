@@ -41,16 +41,16 @@ def home():
         if(form.state.label.text == 'OFF'):
             PowerState.state = SubmitField('ON')                              
             Stop_Threads = False            
-            background_thread = Thread(target=triggerMnemonicScalp, args=(lambda: Stop_Threads,))                                       
+            background_thread = Thread(name='MnemonicScalp', target=triggerMnemonicScalp, args=(lambda: Stop_Threads,))                                       
             background_thread.start() 
-            thread_lists.append(background_thread)                             
+            thread_lists.append(background_thread)             
         elif(form.state.label.text == 'ON'):     
             PowerState.state = SubmitField('OFF')                                                   
             # Wait for all threads to complete
-            Stop_Threads = True 
-            for thread in thread_lists:                
-                thread.join()                                                                             
-        
+            Stop_Threads = True                         
+            for thread in thread_lists:                                
+                thread.join()                  
+                    
     return render_template('index.html', form=form)
     
 
