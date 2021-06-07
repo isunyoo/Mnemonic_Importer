@@ -1,11 +1,6 @@
-body {    
+body {
     position: relative;
 }
-
-/* #swtichButton {
-    position: relative;
-    z-index: 10;
-} */
 
 #swtichButton {
     position: sticky;
@@ -13,6 +8,10 @@ body {
 }
 
 #streamContents {
-    position: relative;
-    z-index: 1;
+    position: sticky;
+    top: 10;
+    height: 500px;
 }
+
+
+/* https://css-tricks.com/creating-sliding-effects-using-sticky-positioning/ */
