@@ -13,5 +13,39 @@ body {
     height: 500px;
 }
 
+.category,
+.title,
+.footer {
+    position: -webkit-sticky;
+    position: sticky;
+    height: 50px;
+}
+
+.category {
+    top: 0;
+    font: 41px/57px "Titan One";
+    color: #f83d23;
+    text-shadow: 5px 5px 0 dodgerblue;
+}
+
+.title {
+    top: 0;
+    font: 50px/60px "Crimson Text";
+    color: #fdef67;
+    text-shadow: 2px 2px 0 #f83d23;
+    background-color: dodgerblue;
+    margin: 0;
+}
+
+.footer {
+    bottom: 100px;
+    z-index: -1;
+    color: white;
+    text-shadow: 1px 1px black;
+    background-color: #f83d23;
+    width: 80%;
+    margin: 50px auto auto auto;
+}
+
 
 /* https://css-tricks.com/creating-sliding-effects-using-sticky-positioning/ */
