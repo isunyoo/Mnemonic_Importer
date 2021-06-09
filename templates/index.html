@@ -7,16 +7,17 @@
 
 <body>
     {% extends "bootstrap/base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block content %}
-    <div class="title">
-        <ul>
-            <li>
-                <h3>Trigger Mnemonic Scalping Function Switch Button</h3>
-                {{ wtf.quick_form(form) }}
-            </li>
-        </ul>
-    </div>
     <div>
-        <embed type="text/html" src="{{ url_for( 'streamData') }} " width="800 " height="1600 "> {% endblock %}
+        <div class="title">
+            <ul>
+                <h3>Trigger Mnemonic Scalping Function Switch Button {{ wtf.quick_form(form) }}</h3>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <embed type="text/html" src="{{ url_for( 'streamData') }} " width="800 " height="1600 "> {% endblock %}
+            </ul>
+        </div>
     </div>
 </body>
 

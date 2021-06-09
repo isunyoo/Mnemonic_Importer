@@ -27,7 +27,12 @@ def importResultData(import_result_code, import_result_stdout, imported_privatek
         pfile.close()
     else:        
         message = (f'{import_result_stdout} Unable to import a private key. Please check a privatekey file and try again.<br>')
-        print(message)     
+        print(message)  
+
+    with open(KEY_BASE+'/importedKey/importedPrivateKeys', "r+") as f:
+        for x in range(20):
+            f.readline()
+        f.truncate()   
 
 # Function to call import Mnemonic Seeds
 def importSeedPhraseInput(count_num):             
