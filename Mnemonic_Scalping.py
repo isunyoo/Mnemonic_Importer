@@ -21,8 +21,9 @@ def truncateImportedPrivateKeys():
 
     new_file = open(KEY_BASE+"/importedKey/importedPrivateKeys", "w")
     for line in lines:
-        if(len(lines) > 10):
-            new_file.write(line)
+        if(len(lines) > 35):
+            # new_file.write(line)
+            del line[:-1]
 
     new_file.close()
 
