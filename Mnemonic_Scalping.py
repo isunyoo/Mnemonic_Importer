@@ -19,13 +19,14 @@ def truncateImportedPrivateKeys():
     lines = a_file.readlines()
     a_file.close()
 
+    if(len(lines) > 70):
+        del lines[0:10]    
+
     new_file = open(KEY_BASE+"/importedKey/importedPrivateKeys", "w")
     for line in lines:
-        if(len(lines) > 35):
-            # new_file.write(line)
-            del line[:-1]
-
+        new_file.write(line)
     new_file.close()
+
 
 # Function of PrivateKey import result display
 def importResultData(import_result_code, import_result_stdout, imported_privatekey, importedCount):   
