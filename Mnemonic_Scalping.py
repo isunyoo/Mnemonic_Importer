@@ -19,7 +19,8 @@ def truncateImportedPrivateKeys():
     lines = a_file.readlines()
     a_file.close()
 
-    if(len(lines) > 70):
+    # Truncate 0~10 lines, if total more than 50 lines
+    if(len(lines) > 50):
         del lines[0:10]    
 
     new_file = open(KEY_BASE+"/importedKey/importedPrivateKeys", "w")

@@ -1,7 +1,7 @@
 from time import sleep
 from decouple import config
 from threading import Thread
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for  
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
@@ -27,6 +27,7 @@ class PowerState(FlaskForm):
 
 # Flask http web display
 app = Flask(__name__)
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 Bootstrap(app)
 
 app.config['SECRET_KEY'] = 'abcd1234$'
@@ -34,7 +35,7 @@ app.config['SECRET_KEY'] = 'abcd1234$'
 @app.route('/', methods=['GET', 'POST'])
 def home():
     global Stop_Threads      
-    form = PowerState()    
+    form = PowerState()  
     thread_lists = []         
 
     if form.validate_on_submit():        
@@ -50,9 +51,9 @@ def home():
             Stop_Threads = True                         
             for thread in thread_lists:                                
                 thread.join()                  
-                    
+
+        # return redirect(url_for('home'))                    
     return render_template('index.html', form=form)
-    
 
 @app.route('/streamData', methods=['GET'])
 def streamData():
@@ -60,7 +61,7 @@ def streamData():
         with open(KEY_BASE+'/importedKey/importedPrivateKeys') as f:
             while True:
                 yield f.read()                                
-                sleep(1)        
+                sleep(1)           
 
     return app.response_class(generate(), mimetype='text/plain')        
 

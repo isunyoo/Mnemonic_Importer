@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+        
+<head>    
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mystyle.css') }}">
+    <meta http-equiv="refresh" content="3">     
 </head>
 
 <body>
@@ -12,7 +13,7 @@
             <ul>
                 <h3>Trigger Mnemonic Scalping Function Switch Button {{ wtf.quick_form(form) }}</h3>
             </ul>
-        </div>
+        </div>        
         <div>
             <ul>
                 <embed type="text/html" src="{{ url_for( 'streamData') }} " width="800 " height="1600 "> {% endblock %}
