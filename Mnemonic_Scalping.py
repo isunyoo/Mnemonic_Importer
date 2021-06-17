@@ -12,22 +12,20 @@ KEY_BASE = config('KEYSTORE_BASE')
 # Connection Verification
 web3 = Web3(Web3.HTTPProvider(NETWORK_HOME))
 
-
 # Function to truncate imported private keys
 def truncateImportedPrivateKeys():
     a_file = open(KEY_BASE+"/importedKey/importedPrivateKeys", "r")
     lines = a_file.readlines()
     a_file.close()
 
-    # Truncate 0~10 lines, if total more than 50 lines
-    if(len(lines) > 50):
-        del lines[0:10]    
+    # Truncate 0~5 lines, if total more than 55 lines
+    if(len(lines) > 55):
+        del lines[0:5]    
 
     new_file = open(KEY_BASE+"/importedKey/importedPrivateKeys", "w")
     for line in lines:
         new_file.write(line)
     new_file.close()
-
 
 # Function of PrivateKey import result display
 def importResultData(import_result_code, import_result_stdout, imported_privatekey, importedCount):   
@@ -65,7 +63,7 @@ def importSeedPhraseInput(count_num):
                 os.remove(single_file)
             sf.close()
 
-
+# Flask main function
 if __name__ == "__main__":
     importedCount = 1
     while True:

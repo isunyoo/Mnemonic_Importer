@@ -52,7 +52,6 @@ def home():
             for thread in thread_lists:                                
                 thread.join()                  
 
-        # return redirect(url_for('home'))                    
     return render_template('index.html', form=form)
 
 @app.route('/streamData', methods=['GET'])
@@ -65,7 +64,7 @@ def streamData():
 
     return app.response_class(generate(), mimetype='text/plain')        
 
-
+# Flask main function
 if __name__ == '__main__':                                                                                                                                                                     
     app.debug = True                                                                                                                                                                           
     app.run()
