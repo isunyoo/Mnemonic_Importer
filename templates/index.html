@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-        
-<head>        
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mystyle.css') }}">    
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mystyle.css') }}">
 </head>
 
 <body>
@@ -10,18 +10,19 @@
     <div>
         <div class="title">
             <ul>
-                <h3>Trigger Mnemonic Scalping Function Switch Button {{ wtf.quick_form(form) }}</h3>
+                <h3>Trigger Mnemonic Scalping Function Switch Button</h3>
+                {{ wtf.quick_form(form) }}
             </ul>
-        </div>        
-        <div>            
+        </div>
+        <div>
             <script>
                 // Reloading page after 5 seconds 
                 function autoRefresh() {
                     window.location = window.location.href;
                 }
                 setInterval('autoRefresh()', 3000);
-            </script>            
-            <ul>                                
+            </script>
+            <ul>
                 <embed type="text/html" src="{{ url_for( 'streamData') }}" width="700" height="850"> {% endblock %}
             </ul>
         </div>

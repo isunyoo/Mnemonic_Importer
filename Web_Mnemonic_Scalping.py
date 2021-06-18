@@ -1,7 +1,7 @@
 from time import sleep
 from decouple import config
 from threading import Thread
-from flask import Flask, render_template, redirect, url_for  
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
