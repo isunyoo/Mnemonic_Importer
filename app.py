@@ -5,7 +5,7 @@ from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
-import Mnemonic_Scalping as mnemonic_Scalp
+import utils.Mnemonic_Scalping as mnemonic_Scalp
 
 # Global variables
 KEY_BASE = config('KEYSTORE_BASE')
@@ -32,8 +32,12 @@ Bootstrap(app)
 
 app.config['SECRET_KEY'] = 'abcd1234$'
 
-@app.route('/', methods=['GET', 'POST'])
-def home():
+@app.route('/')
+def index():    
+    return render_template('index.html')
+
+@app.route('/MnemonicScalp', methods=['GET', 'POST'])
+def MnemonicScalp():
     global Stop_Threads      
     form = PowerState()  
     thread_lists = []         
@@ -52,7 +56,7 @@ def home():
             for thread in thread_lists:                                
                 thread.join()                  
 
-    return render_template('index.html', form=form)
+    return render_template('scalping.html', form=form)
 
 @app.route('/streamData', methods=['GET'])
 def streamData():

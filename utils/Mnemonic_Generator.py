@@ -1,6 +1,6 @@
 import time, binascii
 from mnemonic import Mnemonic
-import Mnemonic_util as imMnemonic
+from . import Mnemonic_util as imMnemonic
 
 mnemo = Mnemonic("english")
 

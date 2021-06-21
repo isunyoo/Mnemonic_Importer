@@ -1,8 +1,8 @@
 import time, os, glob, json
 from web3 import Web3
 from decouple import config
-import Import_PrivateKey as imPri
-import Mnemonic_Generator as mnemonic_Gen
+from . import Import_PrivateKey as imPri
+from . import Mnemonic_Generator as mnemonic_Gen
 
 # Global variables
 NETWORK_HOME = config('NETWORK_NAME_PROD')

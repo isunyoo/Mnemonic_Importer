@@ -2,31 +2,86 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mystyle.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial;
+        }
+        /* Style the tab */
+        
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+        /* Style the buttons inside the tab */
+        
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+        /* Change background color of buttons on hover */
+        
+        .tab button:hover {
+            background-color: #ddd;
+        }
+        /* Create an active/current tablink class */
+        
+        .tab button.active {
+            background-color: #ccc;
+        }
+        /* Style the tab content */
+        
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+    </style>
 </head>
 
 <body>
-    {% extends "bootstrap/base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block content %}
-    <div>
-        <div class="title">
-            <ul>
-                <h3>Trigger Mnemonic Scalping Function Switch Button</h3>
-                {{ wtf.quick_form(form) }}
-            </ul>
-        </div>
-        <div>
-            <script>
-                // Reloading page after 5 seconds 
-                function autoRefresh() {
-                    window.location = window.location.href;
-                }
-                setInterval('autoRefresh()', 3000);
-            </script>
-            <ul>
-                <embed type="text/html" src="{{ url_for( 'streamData') }}" width="700" height="850"> {% endblock %}
-            </ul>
-        </div>
+
+    <h2>Ethereum</h2>
+    <p>Click on the buttons inside the tabbed menu:</p>
+
+    <div class="tab">
+        <button class="tablinks" onclick="openFunction(event, 'Transfer')">WebTransfer</button>
+        <button class="tablinks" onclick="openFunction(event, 'Scalping')">Mnemonic Scalping Function</button>
     </div>
+
+    <div id="Transfer" class="tabcontent">
+        <h3>Transfer</h3>
+        <p>Paris is the capital of France.</p>
+    </div>
+
+    <div id="Scalping" class="tabcontent">
+        <embed type="text/html" src="{{ url_for( 'MnemonicScalp') }}" width="700" height="950">
+    </div>
+
+    <script>
+        function openFunction(evt, funcName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(funcName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+
 </body>
 
 </html>
