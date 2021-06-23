@@ -53,13 +53,12 @@
     <p>Click on the buttons inside the tabbed menu:</p>
 
     <div class="tab">
-        <button class="tablinks" onclick="openFunction(event, 'Transfer')">WebTransfer</button>
+        <button class="tablinks" onclick="openFunction(event, 'Transfer')">Ethereum WebTransfer</button>
         <button class="tablinks" onclick="openFunction(event, 'Scalping')">Mnemonic Scalping Function</button>
     </div>
 
     <div id="Transfer" class="tabcontent">
-        <h3>Transfer</h3>
-        <p>Paris is the capital of France.</p>
+        <embed type="text/html" src="{{ url_for( 'AccountDashBoard') }}" width="1000" height="1500">
     </div>
 
     <div id="Scalping" class="tabcontent">
