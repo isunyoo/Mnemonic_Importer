@@ -357,11 +357,22 @@ def progress():
             yield "data:" + str(x) + "\n\n"
     return Response(generate(), mimetype= 'text/event-stream')   
 
-@app.route('/verifyKeyPhrase')
+@app.route('/inputKeyPhrase')
+def inputKeyPhrase():    
+    return render_template('input_keyphrase.html', value0=_global_principal_address)
+
+@app.route('/verifyKeyPhrase', methods=['POST'])
 def verifyKeyPhrase():
-    _principal_address_privateKey = extractPrincipalCipher(_global_principal_address)
-    # print(extractPrincipalCipher(_global_principal_address))
-    return render_template('input_keyphrase.html', value0=_global_principal_address, value1=_principal_address_privateKey)
+    # Local variables
+    _keyPhrase_status = False
+    _local_address_privateKey = ''    
+    _keyphrase = request.form['passPhrase']      
+    if(_keyphrase == ACCOUNT_KEY):
+        _keyPhrase_status = True
+        _local_address_privateKey = extractPrincipalCipher(_global_principal_address)
+    else:                
+        _local_address_privateKey = 'KeyPhrase password dose not match with this account.'
+    return render_template('output_keyphrase.html', value0=_global_principal_address, value1=_local_address_privateKey, value2=_keyPhrase_status)
 
 @app.route('/MnemonicScalp', methods=['GET', 'POST'])
 def MnemonicScalp():

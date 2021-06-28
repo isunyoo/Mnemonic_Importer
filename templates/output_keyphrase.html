@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <script type="text/javascript">
+        function keyPhrase_error(error_message) {
+            alert(error_message);
+        }
+
+        // Copying the text on the serverside clipboard
+        function clip_text(a_string) {
+            var input = document.createElement('input')
+            input.id = "__copyText__";
+            input.value = a_string;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand("copy");
+            var txt = input.value
+            input.remove()
+            console.log("OK COPIED: '" + txt + "'")
+            alert("Private Key '" + txt + "' copied to clipboard!");
+            window.close();
+        }
+
+        function clip_div(divId) {
+            return clip_text(document.getElementById(divId).innerText)
+        }
+    </script>
+    {% if(value2 == True): %}
+    <p>This is the current selected account (click to copy)</p>
+    <p>Public address: {{ value0 }}</p>
+    <p>Private Key:
+        <div id="prinCopyme">
+            <a href="#" onClick="clip_div('prinCopyme')">{{ value1 }}</a>
+        </div>
+    </p>
+    <p>Warning: Never disclose this key. Anyone with your private key can fully control your account, including transferring away any of your funds.</p>
+    {% else: %}
+    <script>
+        window.onload = keyPhrase_error('{{ value1 }}');
+        window.close();
+    </script>
+    {% endif %}
+</body>
+
+</html>
