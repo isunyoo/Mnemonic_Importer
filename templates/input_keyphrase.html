@@ -10,9 +10,9 @@
     <script type="text/javascript">
         function checkInputPwd() {
             var keyPhrase = document.forms["privateKeyForm"]["passPhrase"].value;
-            if (keyPhrase == "") {
-                alert("Please type your keyphrase password");                
-                return false;                          
+            if (keyPhrase == "" || keyPhrase === null) {
+                alert("Please type your keyphrase password");
+                return false;
             } else {
                 loadingFunc();
             }
@@ -27,19 +27,20 @@
             }
         }
 
-        function loadingFunc() {                        
+        // Show loading icon in JQuery Ajax request
+        function loadingFunc() {
             $("#loading").show();
-            $("#content").hide();            
+            $("#content").hide();
         }
     </script>
     <div id="loading">
     </div>
     <div id="content">
-        <form name="privateKeyForm" action="/verifyKeyPhrase" method="post" onsubmit="return checkInputPwd()">        
+        <form name="privateKeyForm" action="/verifyKeyPhrase" method="post" onsubmit="return checkInputPwd()">
             <p>Show private key for "{{ value0 }}"</p>
             Type your KeyPhrase password: <input type="password" name="passPhrase" id="myInput"><br>
             <input type="checkbox" onClick="myFunction()">Show Password
-            <p>Warning: Never disclose this key. Anyone with your private keys can steal any assets held in your account.</p>            
+            <p>Warning: Never disclose this key. Anyone with your private keys can steal any assets held in your account.</p>
             <input type="submit" value="Show private key">
         </form>
     </div>
