@@ -8,16 +8,13 @@
 
 <body>
     <script type="text/javascript">
-        var keyPhraseStatus; 
-
         function checkInputPwd() {
             var keyPhrase = document.forms["privateKeyForm"]["passPhrase"].value;
             if (keyPhrase == "") {
-                alert("Please type your keyphrase password");
-                keyPhraseStatus = false;
+                alert("Please type your keyphrase password");                
                 return false;                          
             } else {
-                keyPhraseStatus = true;
+                loadingFunc();
             }
         }
 
@@ -30,23 +27,10 @@
             }
         }
 
-        function loadingFunc() {            
-            if(keyPhraseStatus == true){
-                $("#loading").show();
-                $("#content").hide();
-            }            
+        function loadingFunc() {                        
+            $("#loading").show();
+            $("#content").hide();            
         }
-
-        // function loadingFunc() {
-        //     var keyPhrase = document.forms["privateKeyForm"]["passPhrase"].value;
-        //     if (keyPhrase == "") {
-        //         alert("Please type your keyphrase password");
-        //         return false;
-        //     } else {
-        //         $("#loading").show();
-        //         $("#content").hide();
-        //     }            
-        // }
     </script>
     <div id="loading">
     </div>
@@ -55,8 +39,8 @@
             <p>Show private key for "{{ value0 }}"</p>
             Type your KeyPhrase password: <input type="password" name="passPhrase" id="myInput"><br>
             <input type="checkbox" onClick="myFunction()">Show Password
-            <p>Warning: Never disclose this key. Anyone with your private keys can steal any assets held in your account.</p>
-            <input type="submit" value="Show private key" onClick="loadingFunc()">
+            <p>Warning: Never disclose this key. Anyone with your private keys can steal any assets held in your account.</p>            
+            <input type="submit" value="Show private key">
         </form>
     </div>
 </body>
